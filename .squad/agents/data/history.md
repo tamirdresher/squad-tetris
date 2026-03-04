@@ -29,3 +29,11 @@ Initial setup complete.
 - **Ports:** Web on 3000, API on 3001, Aspire Dashboard on 15000
 - **Pattern:** Use AddNpmApp() with repo root working directory, npm workspace scripts (dev:web, dev:api)
 - **Prerequisites:** .NET 8 SDK + Aspire workload (`dotnet workload install aspire`)
+
+### Azure SignalR Integration (Issue #22, 2026-03-04)
+- **Architecture:** SignalR Service (Serverless Standard tier) for real-time game communication
+- **Fallback:** Native WebSocket when SignalR unavailable
+- **Type Safety:** Full TypeScript types for SignalR messages and hub methods
+- **Integration:** Bicep template defines service, API server configures hub registration and middleware
+- **Benefits:** Managed service reduces operational burden, Serverless SKU optimizes costs, built-in redundancy
+
