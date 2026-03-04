@@ -1,7 +1,7 @@
 {
   "name": "Squad Tetris - Backend Team",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
-  "postCreateCommand": "npm install && cd apps/api && npm install && cd ../../packages/game-engine && npm install",
+  "postCreateCommand": "npm install -g @bradygaster/squad-cli && npm install && cd apps/api && npm install && cd ../../packages/game-engine && npm install",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -22,3 +22,4 @@
     "SQUAD_CODESPACE": "CS-2"
   }
 }
+

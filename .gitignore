@@ -7,3 +7,6 @@ dist/
 coverage/
 .vscode/
 *.log
+# Squad: ignore generated logs
+.squad/orchestration-log/
+.squad/log/

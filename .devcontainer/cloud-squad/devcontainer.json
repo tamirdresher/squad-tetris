@@ -7,7 +7,7 @@
       "version": "8.0"
     }
   },
-  "postCreateCommand": "npm install && az --version && dotnet --version",
+  "postCreateCommand": "npm install -g @bradygaster/squad-cli && npm install && az --version && dotnet --version",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -28,3 +28,4 @@
     "SQUAD_CODESPACE": "CS-3"
   }
 }
+
