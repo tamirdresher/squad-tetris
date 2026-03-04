@@ -27,3 +27,10 @@
 - **Teams:** UI, Backend, Mobile — working in parallel across Codespaces
 - **User:** Tamir Dresher
 - **Created:** 2026-03-04
+
+## Issue Source
+
+- **Repository:** tamirdresher/squad-tetris
+- **Connected:** 2026-03-04
+- **Focus:** squad:cloud-team issues
+- **Filters:** label:squad:cloud-team, state:open
