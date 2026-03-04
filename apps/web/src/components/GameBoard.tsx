@@ -4,7 +4,7 @@ import './GameBoard.css';
 
 interface GameBoardProps {
   board: Board;
-  currentPiece?: Piece;
+  currentPiece?: Piece | null;
 }
 
 export function GameBoard({ board, currentPiece }: GameBoardProps) {
