@@ -31,3 +31,12 @@ Initial setup complete.
 - Both themes maintain purple gradient for headings (#667eea → #764ba2)
 - Smooth 0.3s transitions on theme switch for professional feel
 - Successfully built and committed to branch `squad/10-theme-toggle`
+
+**Keyboard Controls Implementation (Issue #4):**
+- Created useGameControls hook for keyboard event handling (Arrow keys, rotation, pause, hard drop)
+- Created useGameLoop hook for gravity system (auto-drop with speed based on level)
+- Added game engine helper functions: isValidPosition, movePiece, rotatePiece, getHardDropPosition, lockPiece, clearLines, spawnPiece, randomTetrominoType
+- Implemented full game logic with state management, collision detection, line clearing, and scoring
+- Game properly pauses with P/Escape, pieces rotate with Up/Z, hard drop with Space
+- Gravity speed increases with level (formula: max(100ms, 1000ms - (level-1)*50ms))
+- GameBoard expects `currentPiece?: Piece` (undefined) but GameState has `Piece | null` - convert with `|| undefined` when passing props
