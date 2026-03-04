@@ -134,12 +134,71 @@ resource staticWebAppCustomDomain 'Microsoft.Web/staticSites/customDomains@2023-
   properties: {}
 }
 
+// SignalR Service for WebSocket scaling
+resource signalR 'Microsoft.SignalRService/signalR@2023-02-01' = {
+  name: '${prefix}-signalr'
+  location: location
+  sku: {
+    name: 'Standard_S1'
+    tier: 'Standard'
+    capacity: 1
+  }
+  kind: 'SignalR'
+  properties: {
+    features: [
+      {
+        flag: 'ServiceMode'
+        value: 'Serverless'
+      }
+      {
+        flag: 'EnableConnectivityLogs'
+        value: 'true'
+      }
+    ]
+    cors: {
+      allowedOrigins: [
+        '*'
+      ]
+    }
+  }
+}
+
+// SignalR Service for WebSocket scaling
+resource signalR 'Microsoft.SignalRService/signalR@2023-02-01' = {
+  name: '${prefix}-signalr'
+  location: location
+  sku: {
+    name: 'Standard_S1'
+    tier: 'Standard'
+    capacity: 1
+  }
+  kind: 'SignalR'
+  properties: {
+    features: [
+      {
+        flag: 'ServiceMode'
+        value: 'Serverless'
+      }
+      {
+        flag: 'EnableConnectivityLogs'
+        value: 'true'
+      }
+    ]
+    cors: {
+      allowedOrigins: [
+        '*'
+      ]
+    }
+  }
+}
+
 // TODO: Azure Container Apps Environment
 // TODO: Container App for API
-// TODO: SignalR Service for WebSocket scaling
 // TODO: Application Insights
 
 output apiUrl string = 'https://${prefix}-api.azurecontainerapps.io'
 output webUrl string = staticWebApp.properties.defaultHostname
 output cosmosEndpoint string = cosmosAccount.properties.documentEndpoint
 output cosmosConnectionString string = cosmosAccount.listConnectionStrings().connectionStrings[0].connectionString
+output signalRConnectionString string = signalR.listKeys().primaryConnectionString
+output signalREndpoint string = signalR.properties.hostName

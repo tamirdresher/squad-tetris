@@ -1,5 +1,6 @@
 import express, { type Request, type Response, type NextFunction } from 'express';
 import cors from 'cors';
+import { signalRService } from './signalr';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -23,6 +24,22 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-app.listen(PORT, () => {
-  console.log(`🎮 Squad Tetris API running on port ${PORT}`);
+async function startServer() {
+  // Initialize SignalR Service (falls back to WebSocket if not configured)
+  await signalRService.initialize();
+
+  if (signalRService.isUsingFallback()) {
+    console.log('🔌 Development mode: Direct WebSocket will be used');
+  } else {
+    console.log('☁️  Production mode: Azure SignalR Service connected');
+  }
+
+  app.listen(PORT, () => {
+    console.log(`🎮 Squad Tetris API running on port ${PORT}`);
+  });
+}
+
+startServer().catch((error) => {
+  console.error('❌ Server startup failed:', error);
+  process.exit(1);
 });
