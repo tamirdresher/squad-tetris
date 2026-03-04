@@ -54,3 +54,12 @@ export function createGameState(): GameState {
     isGameOver: false,
   };
 }
+
+// Re-export all engine modules
+export { getTetrominoShape, getPieceCoordinates, spawnPiece, randomTetrominoType } from './pieces';
+export type { ShapeMatrix } from './pieces';
+export { checkCollision, isValidPosition } from './collision';
+export { rotatePiece, tryRotate } from './rotation';
+export type { RotationResult } from './rotation';
+export { findFullLines, clearLines, clearLinesAndScore, isGameOver } from './scoring';
+export { moveLeft, moveRight, moveDown, hardDrop, lockPiece } from './movement';

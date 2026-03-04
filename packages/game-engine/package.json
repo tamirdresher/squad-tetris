@@ -8,6 +8,7 @@
     "build": "tsc",
     "test": "vitest"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "vitest": "^4.0.18"
+  }
 }
