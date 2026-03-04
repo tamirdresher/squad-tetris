@@ -134,12 +134,153 @@ resource staticWebAppCustomDomain 'Microsoft.Web/staticSites/customDomains@2023-
   properties: {}
 }
 
-// TODO: Azure Container Apps Environment
-// TODO: Container App for API
+// ============================================================
+// Azure Container Registry
+// ============================================================
+
+resource acr 'Microsoft.ContainerRegistry/registries@2023-07-01' = {
+  name: '${replace(prefix, '-', '')}${uniqueSuffix}'
+  location: location
+  sku: {
+    name: environment == 'prod' ? 'Standard' : 'Basic'
+  }
+  properties: {
+    adminUserEnabled: true
+    publicNetworkAccess: 'Enabled'
+  }
+}
+
+// ============================================================
+// Log Analytics Workspace (required for Container Apps)
+// ============================================================
+
+resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
+  name: '${prefix}-logs'
+  location: location
+  properties: {
+    sku: {
+      name: 'PerGB2018'
+    }
+    retentionInDays: environment == 'prod' ? 90 : 30
+  }
+}
+
+// ============================================================
+// Container Apps Environment
+// ============================================================
+
+resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2023-05-01' = {
+  name: '${prefix}-env'
+  location: location
+  properties: {
+    appLogsConfiguration: {
+      destination: 'log-analytics'
+      logAnalyticsConfiguration: {
+        customerId: logAnalytics.properties.customerId
+        sharedKey: logAnalytics.listKeys().primarySharedKey
+      }
+    }
+    zoneRedundant: environment == 'prod' ? true : false
+  }
+}
+
+// ============================================================
+// Container App for API Service
+// ============================================================
+
+resource apiContainerApp 'Microsoft.App/containerApps@2023-05-01' = {
+  name: '${prefix}-api'
+  location: location
+  properties: {
+    managedEnvironmentId: containerAppsEnvironment.id
+    configuration: {
+      ingress: {
+        external: true
+        targetPort: 3001
+        transport: 'auto'
+        allowInsecure: false
+        traffic: [
+          {
+            latestRevision: true
+            weight: 100
+          }
+        ]
+      }
+      registries: [
+        {
+          server: acr.properties.loginServer
+          username: acr.listCredentials().username
+          passwordSecretRef: 'acr-password'
+        }
+      ]
+      secrets: [
+        {
+          name: 'acr-password'
+          value: acr.listCredentials().passwords[0].value
+        }
+        {
+          name: 'cosmos-connection-string'
+          value: cosmosAccount.listConnectionStrings().connectionStrings[0].connectionString
+        }
+      ]
+    }
+    template: {
+      containers: [
+        {
+          name: 'api'
+          image: '${acr.properties.loginServer}/squad-tetris-api:${apiImageTag}'
+          resources: {
+            cpu: json(environment == 'prod' ? '1.0' : '0.5')
+            memory: environment == 'prod' ? '2Gi' : '1Gi'
+          }
+          env: [
+            {
+              name: 'NODE_ENV'
+              value: environment
+            }
+            {
+              name: 'PORT'
+              value: '3001'
+            }
+            {
+              name: 'CORS_ORIGIN'
+              value: environment == 'dev' ? '*' : 'https://${prefix}-web.azurestaticapps.net'
+            }
+            {
+              name: 'COSMOS_CONNECTION_STRING'
+              secretRef: 'cosmos-connection-string'
+            }
+            {
+              name: 'COSMOS_DATABASE_NAME'
+              value: 'squad-tetris-db'
+            }
+          ]
+        }
+      ]
+      scale: {
+        minReplicas: scalingConfig[environment].minReplicas
+        maxReplicas: scalingConfig[environment].maxReplicas
+        rules: [
+          {
+            name: 'http-scaling'
+            http: {
+              metadata: {
+                concurrentRequests: '100'
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+
 // TODO: SignalR Service for WebSocket scaling
 // TODO: Application Insights
 
-output apiUrl string = 'https://${prefix}-api.azurecontainerapps.io'
+output apiUrl string = 'https://${apiContainerApp.properties.configuration.ingress.fqdn}'
 output webUrl string = staticWebApp.properties.defaultHostname
 output cosmosEndpoint string = cosmosAccount.properties.documentEndpoint
 output cosmosConnectionString string = cosmosAccount.listConnectionStrings().connectionStrings[0].connectionString
+output acrLoginServer string = acr.properties.loginServer
+output containerAppsEnvironmentId string = containerAppsEnvironment.id

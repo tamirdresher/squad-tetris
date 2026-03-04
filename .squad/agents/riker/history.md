@@ -40,3 +40,19 @@ Initial setup complete.
 - Infrastructure workflow: Validates and deploys Bicep templates when infra/ changes
 - Uses OIDC for secure Azure authentication, environment protection for production deployments
 - All workflows use Node.js 20, npm ci for reproducible installs, and proper artifact management
+
+### Azure Static Web Apps Setup (Issue #24, 2026-03-04)
+- **Hosting Infrastructure:** Azure Static Web App with Free tier for dev, Standard for prod
+- **Configuration:** React SPA routing with fallback to index.html, staticwebapp.config.json with security headers
+- **Security:** CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy configured
+- **Integration:** Parameterized API backend linking and custom domain support
+- **Output:** webUrl now references actual Static Web App hostname instead of placeholder
+- **Benefits:** Built-in CDN, automatic SSL, GitHub Actions integration, staging environments
+
+### Azure Static Web Apps Setup (Issue #24, 2026-03-04)
+- **Hosting Infrastructure:** Azure Static Web App with Free tier for dev, Standard for prod
+- **Configuration:** React SPA routing with fallback to index.html, staticwebapp.config.json with security headers
+- **Security:** CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy configured
+- **Integration:** Parameterized API backend linking and custom domain support
+- **Output:** webUrl now references actual Static Web App hostname instead of placeholder
+- **Benefits:** Built-in CDN, automatic SSL, GitHub Actions integration, staging environments
