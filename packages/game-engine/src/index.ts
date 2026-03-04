@@ -55,188 +55,14 @@ export function createGameState(): GameState {
   };
 }
 
-/** Tetromino shape definitions - each type has 4 rotation states */
-export const TETROMINO_SHAPES: Record<TetrominoType, number[][][]> = {
-  I: [
-    // Rotation 0: Horizontal
-    [
-      [0, 0, 0, 0],
-      [1, 1, 1, 1],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-    ],
-    // Rotation 1: Vertical
-    [
-      [0, 0, 1, 0],
-      [0, 0, 1, 0],
-      [0, 0, 1, 0],
-      [0, 0, 1, 0],
-    ],
-    // Rotation 2: Horizontal
-    [
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [1, 1, 1, 1],
-      [0, 0, 0, 0],
-    ],
-    // Rotation 3: Vertical
-    [
-      [0, 1, 0, 0],
-      [0, 1, 0, 0],
-      [0, 1, 0, 0],
-      [0, 1, 0, 0],
-    ],
-  ],
-  O: [
-    // All rotations are the same for O-piece
-    [
-      [1, 1],
-      [1, 1],
-    ],
-    [
-      [1, 1],
-      [1, 1],
-    ],
-    [
-      [1, 1],
-      [1, 1],
-    ],
-    [
-      [1, 1],
-      [1, 1],
-    ],
-  ],
-  T: [
-    // Rotation 0: T pointing up
-    [
-      [0, 1, 0],
-      [1, 1, 1],
-      [0, 0, 0],
-    ],
-    // Rotation 1: T pointing right
-    [
-      [0, 1, 0],
-      [0, 1, 1],
-      [0, 1, 0],
-    ],
-    // Rotation 2: T pointing down
-    [
-      [0, 0, 0],
-      [1, 1, 1],
-      [0, 1, 0],
-    ],
-    // Rotation 3: T pointing left
-    [
-      [0, 1, 0],
-      [1, 1, 0],
-      [0, 1, 0],
-    ],
-  ],
-  S: [
-    // Rotation 0
-    [
-      [0, 1, 1],
-      [1, 1, 0],
-      [0, 0, 0],
-    ],
-    // Rotation 1
-    [
-      [0, 1, 0],
-      [0, 1, 1],
-      [0, 0, 1],
-    ],
-    // Rotation 2
-    [
-      [0, 0, 0],
-      [0, 1, 1],
-      [1, 1, 0],
-    ],
-    // Rotation 3
-    [
-      [1, 0, 0],
-      [1, 1, 0],
-      [0, 1, 0],
-    ],
-  ],
-  Z: [
-    // Rotation 0
-    [
-      [1, 1, 0],
-      [0, 1, 1],
-      [0, 0, 0],
-    ],
-    // Rotation 1
-    [
-      [0, 0, 1],
-      [0, 1, 1],
-      [0, 1, 0],
-    ],
-    // Rotation 2
-    [
-      [0, 0, 0],
-      [1, 1, 0],
-      [0, 1, 1],
-    ],
-    // Rotation 3
-    [
-      [0, 1, 0],
-      [1, 1, 0],
-      [1, 0, 0],
-    ],
-  ],
-  J: [
-    // Rotation 0
-    [
-      [1, 0, 0],
-      [1, 1, 1],
-      [0, 0, 0],
-    ],
-    // Rotation 1
-    [
-      [0, 1, 1],
-      [0, 1, 0],
-      [0, 1, 0],
-    ],
-    // Rotation 2
-    [
-      [0, 0, 0],
-      [1, 1, 1],
-      [0, 0, 1],
-    ],
-    // Rotation 3
-    [
-      [0, 1, 0],
-      [0, 1, 0],
-      [1, 1, 0],
-    ],
-  ],
-  L: [
-    // Rotation 0
-    [
-      [0, 0, 1],
-      [1, 1, 1],
-      [0, 0, 0],
-    ],
-    // Rotation 1
-    [
-      [0, 1, 0],
-      [0, 1, 0],
-      [0, 1, 1],
-    ],
-    // Rotation 2
-    [
-      [0, 0, 0],
-      [1, 1, 1],
-      [1, 0, 0],
-    ],
-    // Rotation 3
-    [
-      [1, 1, 0],
-      [0, 1, 0],
-      [0, 1, 0],
-    ],
-  ],
-};
+// Re-export all engine modules
+export { getTetrominoShape, getPieceCoordinates, spawnPiece, randomTetrominoType } from './pieces';
+export type { ShapeMatrix } from './pieces';
+export { checkCollision, isValidPosition } from './collision';
+export { rotatePiece, tryRotate } from './rotation';
+export type { RotationResult } from './rotation';
+export { findFullLines, clearLines, clearLinesAndScore, isGameOver } from './scoring';
+export { moveLeft, moveRight, moveDown, hardDrop, lockPiece } from './movement';
 
 /** Tetromino colors - standard Tetris color scheme */
 export const TETROMINO_COLORS: Record<TetrominoType, string> = {
@@ -248,12 +74,6 @@ export const TETROMINO_COLORS: Record<TetrominoType, string> = {
   J: '#0000f0', // Blue
   L: '#f0a000', // Orange
 };
-
-/** Get the shape matrix for a tetromino at a specific rotation */
-export function getTetrominoShape(type: TetrominoType, rotation: number): number[][] {
-  const normalizedRotation = ((rotation % 4) + 4) % 4;
-  return TETROMINO_SHAPES[type][normalizedRotation];
-}
 
 /** Get the color for a tetromino type */
 export function getTetrominoColor(type: TetrominoType): string {
