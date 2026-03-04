@@ -1,0 +1,30 @@
+{
+  "name": "Squad Tetris - Cloud Team",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
+  "features": {
+    "ghcr.io/devcontainers/features/azure-cli:1": {},
+    "ghcr.io/devcontainers/features/dotnet:2": {
+      "version": "8.0"
+    }
+  },
+  "postCreateCommand": "npm install && az --version && dotnet --version",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-bicep",
+        "ms-azuretools.vscode-azureresourcegroups",
+        "ms-dotnettools.csdevkit",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+      }
+    }
+  },
+  "forwardPorts": [7100, 7101],
+  "remoteEnv": {
+    "SQUAD_TEAM": "cloud-team",
+    "SQUAD_CODESPACE": "CS-3"
+  }
+}
