@@ -1,4 +1,4 @@
-import type { Board, Piece, Position } from './index';
+import type { Board, Piece, Position } from './types';
 import { checkCollision } from './collision';
 
 type KickData = Position[];

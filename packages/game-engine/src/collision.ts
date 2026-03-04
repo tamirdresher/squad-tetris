@@ -1,4 +1,4 @@
-import { BOARD_WIDTH, BOARD_HEIGHT, type Board, type Piece } from './index';
+import { BOARD_WIDTH, BOARD_HEIGHT, type Board, type Piece } from './types';
 import { getPieceCoordinates } from './pieces';
 
 /** Check if a piece collides with walls, floor, or existing blocks */

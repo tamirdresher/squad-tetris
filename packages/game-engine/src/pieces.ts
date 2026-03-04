@@ -1,4 +1,4 @@
-import type { TetrominoType, Position, Piece } from './index';
+import type { TetrominoType, Position, Piece } from './types';
 
 /** Shape matrix: 2D array where 1 = filled cell, 0 = empty */
 export type ShapeMatrix = number[][];
