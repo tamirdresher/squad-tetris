@@ -1,4 +1,4 @@
-import type { Board, Piece } from './index';
+import type { Board, Piece } from './types';
 import { checkCollision } from './collision';
 import { getPieceCoordinates } from './pieces';
 

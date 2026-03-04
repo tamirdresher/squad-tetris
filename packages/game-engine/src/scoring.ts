@@ -1,4 +1,4 @@
-import { BOARD_WIDTH, type Board, type GameState } from './index';
+import { BOARD_WIDTH, type Board, type GameState } from './types';
 
 const LINE_SCORES: Record<number, number> = {
   0: 0,

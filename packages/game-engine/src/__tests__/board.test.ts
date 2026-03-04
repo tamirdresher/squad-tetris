@@ -42,6 +42,37 @@ describe('Board Creation', () => {
       expect(BOARD_HEIGHT).toBe(20);
     });
   });
+
+  describe('Board Cell State', () => {
+    it('should accept all tetromino types in cells', () => {
+      const board = createBoard();
+      const tetrominoTypes: Array<'I' | 'O' | 'T' | 'S' | 'Z' | 'J' | 'L'> = ['I', 'O', 'T', 'S', 'Z', 'J', 'L'];
+      
+      tetrominoTypes.forEach((type, index) => {
+        board[0][index] = type;
+        expect(board[0][index]).toBe(type);
+      });
+    });
+
+    it('should handle clearing cells back to null', () => {
+      const board = createBoard();
+      board[5][5] = 'T';
+      expect(board[5][5]).toBe('T');
+      
+      board[5][5] = null;
+      expect(board[5][5]).toBeNull();
+    });
+
+    it('should maintain cell state independently', () => {
+      const board = createBoard();
+      board[0][0] = 'I';
+      board[19][9] = 'O';
+      
+      expect(board[0][0]).toBe('I');
+      expect(board[19][9]).toBe('O');
+      expect(board[10][5]).toBeNull();
+    });
+  });
 });
 
 describe('GameState Creation', () => {
