@@ -67,3 +67,16 @@ Initial setup complete.
 - All 32 tests pass (8 board tests + 24 tetromino tests via Vitest)
 - Build order: must build game-engine package first before building web app (workspace dependencies)
 
+**Game Over Screen (Issue #8):**
+- Created GameOver.tsx component with semi-transparent overlay (rgba(0, 0, 0, 0.85))
+- Displays final score, level reached, and lines cleared in stat cards
+- "Play Again" button calls createGameState() to reset game
+- High score tracking using localStorage (tetris-high-score key)
+- Shows "New High Score!" celebration with gold color and pulse animation when player beats previous best
+- Smooth fade-in animation (0.5s) with content slide-up effect
+- Purple gradient styling matching dark theme from index.css
+- GameBoard.tsx updated to accept `Piece | null` for currentPiece prop (matches GameState type)
+- Integrated with game state via isGameOver boolean flag
+- Demo button added to index.tsx for testing the overlay (can trigger/resume game over state)
+
+

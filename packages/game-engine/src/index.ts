@@ -369,6 +369,3 @@ export function spawnPiece(type: TetrominoType): Piece {
     rotation: 0,
   };
 }
-
-// Export scoring functions
-export { calculateScore, calculateLevel } from './scoring';

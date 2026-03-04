@@ -4,18 +4,51 @@
   box-sizing: border-box;
 }
 
+:root[data-theme="dark"] {
+  --bg-gradient-start: #1a1a2e;
+  --bg-gradient-end: #16213e;
+  --text-primary: #f0f0f0;
+  --text-secondary: #a0a0c0;
+  --heading-gradient-start: #667eea;
+  --heading-gradient-end: #764ba2;
+  --border-color: rgba(255, 255, 255, 0.2);
+  --toggle-bg: rgba(255, 255, 255, 0.1);
+  --toggle-bg-hover: rgba(255, 255, 255, 0.2);
+  --toggle-color: #f0f0f0;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --game-cell-border: rgba(255, 255, 255, 0.1);
+  --game-board-bg: rgba(0, 0, 0, 0.3);
+}
+
+:root[data-theme="light"] {
+  --bg-gradient-start: #f0f4f8;
+  --bg-gradient-end: #d9e2ec;
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a5568;
+  --heading-gradient-start: #667eea;
+  --heading-gradient-end: #764ba2;
+  --border-color: rgba(0, 0, 0, 0.15);
+  --toggle-bg: rgba(0, 0, 0, 0.08);
+  --toggle-bg-hover: rgba(0, 0, 0, 0.15);
+  --toggle-color: #1a1a2e;
+  --shadow-color: rgba(0, 0, 0, 0.15);
+  --game-cell-border: rgba(0, 0, 0, 0.1);
+  --game-board-bg: rgba(255, 255, 255, 0.5);
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  color: #f0f0f0;
+  background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  color: var(--text-primary);
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 #root {
@@ -28,7 +61,7 @@ h1 {
   font-size: 3rem;
   text-align: center;
   margin-bottom: 1rem;
-  background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(45deg, var(--heading-gradient-start) 0%, var(--heading-gradient-end) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -37,5 +70,5 @@ h1 {
 p {
   text-align: center;
   font-size: 1.25rem;
-  color: #a0a0c0;
+  color: var(--text-secondary);
 }
