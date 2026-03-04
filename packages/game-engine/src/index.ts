@@ -259,3 +259,116 @@ export function getTetrominoShape(type: TetrominoType, rotation: number): number
 export function getTetrominoColor(type: TetrominoType): string {
   return TETROMINO_COLORS[type];
 }
+
+/** Check if a piece position is valid (no collision) */
+export function isValidPosition(board: Board, piece: Piece): boolean {
+  const shape = getTetrominoShape(piece.type, piece.rotation);
+  
+  for (let dy = 0; dy < shape.length; dy++) {
+    for (let dx = 0; dx < shape[dy].length; dx++) {
+      if (shape[dy][dx]) {
+        const boardY = piece.position.y + dy;
+        const boardX = piece.position.x + dx;
+        
+        // Check boundaries
+        if (boardX < 0 || boardX >= BOARD_WIDTH || boardY >= BOARD_HEIGHT) {
+          return false;
+        }
+        
+        // Allow piece above board (boardY < 0) during spawn
+        if (boardY >= 0 && board[boardY][boardX] !== null) {
+          return false;
+        }
+      }
+    }
+  }
+  
+  return true;
+}
+
+/** Move piece in a direction, returns new piece if valid, null otherwise */
+export function movePiece(board: Board, piece: Piece, dx: number, dy: number): Piece | null {
+  const newPiece: Piece = {
+    ...piece,
+    position: {
+      x: piece.position.x + dx,
+      y: piece.position.y + dy,
+    },
+  };
+  
+  return isValidPosition(board, newPiece) ? newPiece : null;
+}
+
+/** Rotate piece, returns new piece if valid, null otherwise */
+export function rotatePiece(board: Board, piece: Piece, direction: 1 | -1 = 1): Piece | null {
+  const newPiece: Piece = {
+    ...piece,
+    rotation: piece.rotation + direction,
+  };
+  
+  return isValidPosition(board, newPiece) ? newPiece : null;
+}
+
+/** Calculate hard drop position (lowest valid position) */
+export function getHardDropPosition(board: Board, piece: Piece): Piece {
+  let dropPiece = piece;
+  let testPiece = movePiece(board, dropPiece, 0, 1);
+  
+  while (testPiece !== null) {
+    dropPiece = testPiece;
+    testPiece = movePiece(board, dropPiece, 0, 1);
+  }
+  
+  return dropPiece;
+}
+
+/** Lock piece into board, returns new board */
+export function lockPiece(board: Board, piece: Piece): Board {
+  const newBoard = board.map(row => [...row]);
+  const shape = getTetrominoShape(piece.type, piece.rotation);
+  
+  shape.forEach((row, dy) => {
+    row.forEach((cell, dx) => {
+      if (cell) {
+        const boardY = piece.position.y + dy;
+        const boardX = piece.position.x + dx;
+        if (boardY >= 0 && boardY < BOARD_HEIGHT && boardX >= 0 && boardX < BOARD_WIDTH) {
+          newBoard[boardY][boardX] = piece.type;
+        }
+      }
+    });
+  });
+  
+  return newBoard;
+}
+
+/** Clear completed lines, returns new board and count of cleared lines */
+export function clearLines(board: Board): { board: Board; linesCleared: number } {
+  const newBoard = board.filter(row => row.some(cell => cell === null));
+  const linesCleared = BOARD_HEIGHT - newBoard.length;
+  
+  // Add empty rows at the top
+  while (newBoard.length < BOARD_HEIGHT) {
+    newBoard.unshift(Array.from({ length: BOARD_WIDTH }, () => null));
+  }
+  
+  return { board: newBoard, linesCleared };
+}
+
+/** Generate random tetromino type */
+export function randomTetrominoType(): TetrominoType {
+  const types: TetrominoType[] = ['I', 'O', 'T', 'S', 'Z', 'J', 'L'];
+  return types[Math.floor(Math.random() * types.length)];
+}
+
+/** Create a new piece at spawn position */
+export function spawnPiece(type: TetrominoType): Piece {
+  return {
+    type,
+    position: { x: Math.floor(BOARD_WIDTH / 2) - 1, y: 0 },
+    rotation: 0,
+  };
+}
+
+// Export scoring functions
+export { calculateScore, calculateLevel } from './scoring';
