@@ -1,3 +1,7 @@
+// Initialize Application Insights BEFORE other imports
+import { initializeTelemetry } from './telemetry';
+initializeTelemetry();
+
 // Express + WebSocket server stub
 const PORT = process.env.PORT || 3001;
 
