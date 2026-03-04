@@ -8,7 +8,7 @@
 
 ## Core Context
 
-Agent Scribe initialized. Maintains decisions, orchestration logs, session logs, and cross-agent context.
+Agent Worf initialized as Tester. Owns quality — tests, edge cases, code review, and approval/rejection of work.
 
 ## Recent Updates
 

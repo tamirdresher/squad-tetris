@@ -8,7 +8,7 @@
 
 ## Core Context
 
-Agent Scribe initialized. Maintains decisions, orchestration logs, session logs, and cross-agent context.
+Agent Troi initialized as Frontend Dev. Owns the React frontend — game board UI, components, animations, and player interactions.
 
 ## Recent Updates
 

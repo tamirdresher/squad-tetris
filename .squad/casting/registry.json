@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "agents": [
+    {
+      "persistent_name": "Riker",
+      "role": "Lead",
+      "universe": "star-trek-tng",
+      "created_at": "2026-03-04T16:09:00Z",
+      "legacy_named": false,
+      "status": "active"
+    },
+    {
+      "persistent_name": "Troi",
+      "role": "Frontend Dev",
+      "universe": "star-trek-tng",
+      "created_at": "2026-03-04T16:09:00Z",
+      "legacy_named": false,
+      "status": "active"
+    },
+    {
+      "persistent_name": "Data",
+      "role": "Backend Dev",
+      "universe": "star-trek-tng",
+      "created_at": "2026-03-04T16:09:00Z",
+      "legacy_named": false,
+      "status": "active"
+    },
+    {
+      "persistent_name": "Geordi",
+      "role": "Mobile Dev",
+      "universe": "star-trek-tng",
+      "created_at": "2026-03-04T16:09:00Z",
+      "legacy_named": false,
+      "status": "active"
+    },
+    {
+      "persistent_name": "Worf",
+      "role": "Tester",
+      "universe": "star-trek-tng",
+      "created_at": "2026-03-04T16:09:00Z",
+      "legacy_named": false,
+      "status": "active"
+    }
+  ]
+}

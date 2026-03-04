@@ -8,7 +8,7 @@
 
 ## Core Context
 
-Agent Scribe initialized. Maintains decisions, orchestration logs, session logs, and cross-agent context.
+Agent Data initialized as Backend Dev. Owns the Node.js API — multiplayer services, WebSocket communication, game state sync, and server-side logic.
 
 ## Recent Updates
 

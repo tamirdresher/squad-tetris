@@ -8,7 +8,7 @@
 
 ## Core Context
 
-Agent Scribe initialized. Maintains decisions, orchestration logs, session logs, and cross-agent context.
+Agent Riker initialized as Lead. Responsible for architecture, code review, game engine oversight, and cross-team coordination.
 
 ## Recent Updates
 

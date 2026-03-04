@@ -8,7 +8,7 @@
 
 ## Core Context
 
-Agent Scribe initialized. Maintains decisions, orchestration logs, session logs, and cross-agent context.
+Agent Geordi initialized as Mobile Dev. Owns the mobile client — touch controls, mobile rendering, and native game experience.
 
 ## Recent Updates
 

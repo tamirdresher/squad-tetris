@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "assignments": [
+    {
+      "assignment_id": "squad-tetris-001",
+      "universe": "star-trek-tng",
+      "created_at": "2026-03-04T16:09:00Z",
+      "agents": ["Riker", "Troi", "Data", "Geordi", "Worf"],
+      "reason": "Initial team cast"
+    }
+  ]
+}
