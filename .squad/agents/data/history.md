@@ -12,8 +12,13 @@ Agent Data initialized as Backend Dev. Owns the Node.js API — multiplayer serv
 
 ## Recent Updates
 
+📌 **Batch P2 Complete (2026-03-04T16:45Z)**
+- Application Insights integration with auto-collection and game event tracking
+- Graceful no-op telemetry in development mode
+- Ready for Container Apps instrumentation
+
 📌 Team initialized on 2026-03-04
 
 ## Learnings
 
-Initial setup complete.
+Initial setup complete. App Insights telemetry pipeline established for P3 analytics tasks.

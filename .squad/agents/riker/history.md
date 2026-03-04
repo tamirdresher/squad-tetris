@@ -12,8 +12,14 @@ Agent Riker initialized as Lead. Responsible for architecture, code review, game
 
 ## Recent Updates
 
+📌 **Batch P2 Complete (2026-03-04T16:45Z)**
+- Auto-scaling rules (HTTP concurrent requests + CPU) for Container Apps
+- Azure CDN with intelligent caching and compression
+- Game-specific configuration for burst handling
+- CDN cache invalidation via Vite content hashing
+
 📌 Team initialized on 2026-03-04
 
 ## Learnings
 
-Initial setup complete.
+Initial setup complete. Multi-metric scaling and CDN caching foundation established for P3 load testing.
