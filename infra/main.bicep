@@ -7,6 +7,9 @@ param location string = resourceGroup().location
 @description('Environment name (dev, staging, prod)')
 param environment string = 'dev'
 
+@description('Custom domain for the CDN (optional)')
+param cdnCustomDomain string = ''
+
 var prefix = 'squad-tetris-${environment}'
 
 // TODO: Azure Container Apps Environment
