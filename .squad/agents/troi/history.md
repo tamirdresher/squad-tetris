@@ -14,6 +14,21 @@ Agent Troi initialized as Frontend Dev. Owns the React frontend — game board U
 
 📌 Team initialized on 2026-03-04
 ✅ React scaffold completed (issue #1) — branch: squad/1-react-scaffold
+
+### 2026-03-04 — Parallel Test Infrastructure Created
+Worf (Tester) completed anticipatory test specs for issues #2 and #3:
+- board.test.ts: 32 passing tests establishing board contract (10x20 dimensions, cell state mgmt)
+- tetrominos.test.ts: TDD-style specifications for all 7 tetromino shapes, colors, rotations
+- Test runner: Vitest via `npm test`
+- Tests are ready for parallel implementation — implementation will follow TDD approach
+
+### Key Takeaway for Troi
+- Board tests already define the expected API for game board logic
+- Tetromino tests specify shape data you'll need to consume in React components
+- When implementing board rendering (#2) and tetromino display (#3), use tests as contract
+
+## Learnings
+
 ✅ Game board and pieces implemented (issues #2, #3) — branch: squad/2-3-game-board-pieces
 
 ## Learnings
