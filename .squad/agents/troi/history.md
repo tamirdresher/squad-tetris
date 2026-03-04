@@ -29,6 +29,11 @@ Worf (Tester) completed anticipatory test specs for issues #2 and #3:
 
 ## Learnings
 
+✅ Game board and pieces implemented (issues #2, #3) — branch: squad/2-3-game-board-pieces
+
+## Learnings
+
+Initial setup complete.
 **React App Setup:**
 - Web app located at apps/web with workspace name @squad-tetris/web
 - Vite config sets dev server to port 3000 with host: true for Codespaces compatibility
@@ -55,3 +60,25 @@ Worf (Tester) completed anticipatory test specs for issues #2 and #3:
 - apps/web/src/index.css — Dark game-friendly theme
 - packages/game-engine/src/__tests__/board.test.ts — Board API contract
 - packages/game-engine/src/__tests__/tetrominos.test.ts — Tetromino shape specifications
+
+**Lobby Implementation (Issue #5):**
+- Created Lobby.tsx component with create/join room functionality
+- View switching using useState (lobby vs game) — no react-router needed yet
+- Mock room data with Room interface (id, name, playerCount, maxPlayers, status)
+- Player name input, room name input, room list with status indicators
+- Responsive grid layout (1fr 2fr on desktop, stacked on mobile)
+- Button states: disabled for full/in-progress rooms
+- game-engine package needs tsconfig.json to build correctly (rootDir: "src")
+- React 17+ JSX transform doesn't require React import — use `import { useState }` not `import React`
+- Lobby.css follows dark theme from index.css with purple gradient accents
+
+**Game Board & Tetromino Implementation (Issues #2, #3):**
+- Added TETROMINO_SHAPES to game-engine: 4 rotation states for each of 7 types (I, O, T, S, Z, J, L)
+- Added TETROMINO_COLORS with standard Tetris colors (I=cyan, O=yellow, T=purple, S=green, Z=red, J=blue, L=orange)
+- Created getTetrominoShape() and getTetrominoColor() helper functions
+- GameBoard.tsx renders 10x20 grid using CSS Grid, overlays current piece on board state
+- NextPiece.tsx shows preview of upcoming piece with proper colors
+- CSS uses dark theme with cell borders, shadows for depth effect
+- All 32 tests pass (8 board tests + 24 tetromino tests via Vitest)
+- Build order: must build game-engine package first before building web app (workspace dependencies)
+
