@@ -1,0 +1,22 @@
+{
+  "workstreams": [
+    {
+      "name": "ui-team",
+      "labelFilter": "team:ui",
+      "folderScope": ["packages/ui", "packages/game-board"],
+      "workflow": "default"
+    },
+    {
+      "name": "backend-team",
+      "labelFilter": "team:backend",
+      "folderScope": ["packages/server", "packages/game-engine"],
+      "workflow": "default"
+    },
+    {
+      "name": "cloud-team",
+      "labelFilter": "team:cloud",
+      "folderScope": ["infra/", ".github/workflows/"],
+      "workflow": "default"
+    }
+  ]
+}
