@@ -8,6 +8,7 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
+    "@azure/cosmos": "^4.9.1",
     "@squad-tetris/game-engine": "^0.1.0",
     "@types/ws": "^8.18.1",
     "cors": "^2.8.6",
